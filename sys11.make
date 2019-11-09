@@ -12,3 +12,6 @@ tag-image:
 ci-push-image:
 	echo "$$DOCKER_PASSWORD" | docker login -u "$$DOCKER_USERNAME" --password-stdin
 	docker push "$(REGISTRY)/hyperkube-amd64:$(VERSION)"
+
+ci-upload-kubelet-binary:
+	s3cmd --host=s3.dbl.cloud.syseleven.net put -P _output/dockerized/bin/linux/amd64/kubelet s3://sys11-metakube-kubelet/$(VERSION)/
