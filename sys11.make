@@ -9,6 +9,9 @@ compile-image:
 tag-image:
 	$(MAKE) -C cluster/images/hyperkube REGISTRY=$(REGISTRY) VERSION=$(VERSION) build
 
+compile-kubelet:
+	build/run.sh make all WHAT=cmd/kubelet KUBE_BUILD_PLATFORMS=linux/amd64 >/dev/null
+
 ci-push-image:
 	echo "$$DOCKER_PASSWORD" | docker login -u "$$DOCKER_USERNAME" --password-stdin
 	docker push "$(REGISTRY)/hyperkube-amd64:$(VERSION)"
